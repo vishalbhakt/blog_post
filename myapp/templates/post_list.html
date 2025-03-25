@@ -6,6 +6,7 @@
     <time class="date">
         {{ post.published_date }}
     </time>
+    <h1>Author : {{ post.author }}</h1>
     <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
     <p>{{ post.text|linebreaksbr }}</p>
 </article>
