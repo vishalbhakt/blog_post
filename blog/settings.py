@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-ob=-0l@+8i8s@_j40x%+t-7+ka1c3)6d-b%!zrrd_nn+j9lr5f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.pythonanywhere.com']
+ALLOWED_HOSTS = ['.pythonanywhere.com','localhost','127.0.0.1']
 
 
 # Application definition
@@ -121,7 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 # STATIC_URL = 'static/'
-# STATICFILES_DIRS = [BASE_DIR/'myapp/templates/static']
+# STATICFILES_DIRS = os.path.join[BASE_DIR/'myapp/templates/static']
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Static files (CSS, JavaScript, Images)
@@ -132,7 +132,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Additional places where static files can be collected
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    # os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR ,"myapp/templates/static")
 ]
 
 # STATIC_ROOT = [BASE_DIR / 'templates'/'static']
