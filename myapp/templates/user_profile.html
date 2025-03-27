@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Profile Name : {{ profile_user.username }}' </h2>
+<p>Email: {{ profile_user.email }}</p>
+<p>Role: {{ profile_user.role|capfirst }}</p>
+
+{% if user.is_authenticated and user.role == 'author' %}
+<hr>
+
+<h3>My Posts</h3>
+<a href="{% url 'post_new' %}" class="btn btn-success mb-3">Create New Post</a>
+<ul>
+    {% for post in posts %}
+    <li><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a> - {{ post.published_date }}</li>
+    {% empty %}
+    <li>No posts yet.</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% if request.user.role == 'admin' %}
+<hr>
+<h3>Admin Actions</h3>
+
+<h4>All Users</h4>
+<ul>
+    {% for user in all_users %}
+    <li>{{ user.username }} - {{ user.role }}</li>
+    {% endfor %}
+</ul>
+
+<h4>All Posts</h4>
+<ul>
+    {% for post in all_posts %}
+    <li>{{ post.title }} by {{ post.author }}</li>
+    {% endfor %}
+</ul>
+
+{% endif %}
+
+{% endblock %}
