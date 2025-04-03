@@ -29,9 +29,6 @@ def post_detail(request, pk):
 
 @login_required(login_url='/login/')
 def post_new(request):
-    if request.user.role != 'author':
-        raise PermissionDenied("Only authors can create posts!")
-    
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
@@ -78,15 +75,10 @@ def register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            role = form.cleaned_data["role"]
-            
-            if role == "admin":
-                user.is_staff = True  
-                user.is_superuser = True  
             
             user.save()
             login(request, user)  
-            messages.success(request, f"Your registration as {role} has been successful!")  
+            # messages.success(request, f"Your registration as has been successful!")  
             return redirect("post_list")  
         else:
             messages.error(request, "Please correct the errors below.") 
@@ -115,48 +107,6 @@ def user_logout(request):
     logout(request)
     return redirect("login")  
 
-def admin_check(user):
-    return user.is_superuser
-
-def user_list(request):
-    users = User.objects.annotate(post_count=Count('post'))  
-    return render(request, 'user_list.html', {'users': users})
-
-
-def admin_panel(request):
-
-    if request.method == 'POST' and request.POST.get('action') == 'delete_post':
-        post_id = request.POST.get('post_id')
-        post = get_object_or_404(Post, id=post_id)
-        post.delete()
-        return redirect('admin_panel')  
-
-    users = User.objects.all()
-    for user in users:
-        user.post_count = Post.objects.filter(author=user).count()
-
-    posts = Post.objects.all()
-    
-
-    return render(request, 'admin_panel.html', {
-        'users': users,
-        'posts': posts
-    })
-
-
-def admin_register_user(request):
-    if request.method == "POST":
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            messages.success(request, f"User {user.username} registered successfully!")
-            return redirect("admin_panel")  
-        else:
-            messages.error(request, "Please correct the errors below.")
-    else:
-        form = RegisterForm()
-
-    return render(request, "admin_register.html", {"form": form})
 
 @login_required
 def user_profile(request, username):
@@ -168,11 +118,7 @@ def user_profile(request, username):
         'posts': posts,
     }
 
-    if request.user.role == 'admin':
-        context['all_users'] = User.objects.all()
-        context['all_posts'] = Post.objects.all()
 
     return render(request, 'user_profile.html', context)
-
 
 

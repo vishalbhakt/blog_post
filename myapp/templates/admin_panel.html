@@ -20,7 +20,7 @@
             {% for user in users %}
             <tr>
                 <td>{{ forloop.counter }}</td>
-                <td>{{ user.username }}</td>
+                <td>{{ user.username }} - {{ user.role }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.post_count }}</td>
             </tr>
