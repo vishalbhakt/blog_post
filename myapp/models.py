@@ -22,11 +22,11 @@ class Post(models.Model):
     
 
 class CustomUser(AbstractUser):
-    ROLE_CHOICES = [
-        ('author', 'Author'),
-        ('admin', 'Admin'),
-    ]
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='author')
+    # ROLE_CHOICES = [
+    #     ('author', 'Author'),
+    #     ('admin', 'Admin'),
+    # ]
+    # role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='author')
 
     groups = models.ManyToManyField(Group, related_name="customuser_groups") 
     user_permissions = models.ManyToManyField(Permission, related_name="customuser_permissions")

@@ -16,9 +16,8 @@ class PostForm(forms.ModelForm):
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
-    role = forms.ChoiceField(choices=[('author', 'Author'), ('admin', 'Admin')], required=True)
+    # role = forms.ChoiceField(choices=[('author', 'Author'), ('admin', 'Admin')], required=True)
 
     class Meta:
         model = User
-        fields = ["username", "email", "role", "password1", "password2"]
-
+        fields = ["username", "email", "password1", "password2"]
