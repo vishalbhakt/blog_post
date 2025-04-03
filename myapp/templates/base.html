@@ -39,9 +39,9 @@
                         
                         {% endif %}
             
-                        {% if user.is_authenticated and user.role == 'author' %}
+                       
                         <li><a href="{% url 'post_new' %}" class="nav-link" >Create New Post</a></li>
-                        {% endif %}
+                       
             
                         {% endif %}
                     </ul>
@@ -74,7 +74,7 @@
             <a href="{% url 'post_new' %}">Create a New Post</a>
             {% endif %}
 
-        </div>
+            </div>
     </section>
 
     <main class="container mt-4">
