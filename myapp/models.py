@@ -30,3 +30,16 @@ class CustomUser(AbstractUser):
 
     groups = models.ManyToManyField(Group, related_name="customuser_groups") 
     user_permissions = models.ManyToManyField(Permission, related_name="customuser_permissions")
+
+
+class ProfileUpdate(models.Model):
+    # user = models.OneToOneField(User, on_delete=models.CASCADE)    
+    full_name = models.CharField(max_length=255)    
+    phone_number = models.CharField(max_length=15, blank=True, null=True)  
+    profile_picture = models.ImageField(upload_to="profile_pics/", blank=True, null=True)  
+    bio = models.TextField(blank=True, null=True)  
+    date_of_birth = models.DateField(blank=True, null=True)  
+    gender = models.CharField(max_length=10, choices=[("Male", "Male"), ("Female", "Female"), ("Other", "Other")], blank=True, null=True)  
+    address = models.TextField(blank=True, null=True)  
+    website = models.URLField(blank=True, null=True)   
+ 

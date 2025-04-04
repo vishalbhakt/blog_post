@@ -1,11 +1,10 @@
 from django import forms
-from myapp.models import Post
+from myapp.models import Post,ProfileUpdate
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 
 
-User = get_user_model()
 
 class PostForm(forms.ModelForm):
 
@@ -21,3 +20,10 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ["username", "email", "password1", "password2"]
+
+class ProfileUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = ProfileUpdate
+        fields = ["full_name","phone_number","profile_picture","bio","date_of_birth","gender","address","website"]
+

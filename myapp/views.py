@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.db.models import Count
 from django.http import HttpResponseForbidden
 from django.core.exceptions import PermissionDenied
-from .models import CustomUser, Post
+from .models import CustomUser, Post ,ProfileUpdate
 from .forms import RegisterForm, PostForm
 
 User = get_user_model()
@@ -121,4 +121,7 @@ def user_profile(request, username):
 
     return render(request, 'user_profile.html', context)
 
+def profile_list(request):
+    profiles = ProfileUpdate.objects.all()  # Get all objects
+    return render(request, "profiles.html", {"profiles": profiles})  # Pass to template
 
