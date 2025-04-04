@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Profile List</h1>
+    <table>
+        <tr>
+            <th>Profile Picture</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Gender</th>
+            <th>Website</th>
+            <th>Address</th>
+            <th>Bio</th>
+            <th>Date of Birth</th>
+            <th>Created At</th>
+        </tr>
+        {% for profile in profiles %}
+        <tr>
+            <td>
+                {% if profile.profile_picture %}
+                    <img src="{{ profile.profile_picture.url }}" alt="Profile Picture">
+                {% else %}
+                    No Image
+                {% endif %}
+            </td>
+            <td>{{ profile.full_name }}</td>
+            <td>{{ Post.email }}</td>
+            <td>{{ profile.phone_number|default:"N/A" }}</td>
+            <td>{{ profile.gender|default:"N/A" }}</td>
+            <td>
+                {% if profile.website %}
+                    <a href="{{ profile.website }}" target="_blank">Visit</a>
+                {% else %}
+                    N/A
+                {% endif %}
+            </td>
+            <td>{{ profile.address|default:"N/A" }}</td>
+            <td>{{ profile.bio|default:"N/A" }}</td>
+            <td>{{ profile.date_of_birth|default:"N/A" }}</td>
+            <td>{{ profile.created_at|date:"Y-m-d H:i" }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="10">No profiles found.</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
